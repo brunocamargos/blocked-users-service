@@ -1,0 +1,9 @@
+{
+  "name": "blocked-users-service",
+  "version": "1.0.0",
+  "description": "A simple API to manage blocked users",
+  "main": "index.js",
+  "repository": "https://github.com/brunocamargos/blocked-users-service",
+  "author": "Bruno Camargos <bruno.camargos@gmail.com>",
+  "license": "MIT"
+}
