@@ -1,0 +1,68 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A simple API to manage blocked users",
+    "version": "1.0.0",
+    "title": "BlockedUsersService",
+    "contact": {
+      "email": "bruno.camargos@gmail.com"
+    }
+  },
+  "host": "localhost:3051",
+  "paths": {
+    "/blockedUsers": {
+      "post": {
+        "summary": "Block user",
+        "description": "Add a give user to a blacklist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Body payload",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "cpf"
+              ],
+              "properties": {
+                "cpf": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  }
+}

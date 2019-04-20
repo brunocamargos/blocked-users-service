@@ -1,0 +1,21 @@
+{
+  "check-coverage": true,
+  "lines": 65,
+  "statements": 65,
+  "functions": 65,
+  "branches": 65,
+  "reporter": [
+    "text",
+    "text-summary",
+    "html"
+  ],
+  "all": true,
+  "reporting": {
+    "print": "both"
+  },
+  "exclude": [
+    "test/**/*",
+    "coverage/**/*",
+    "src/commons/middlewares/request-logger.js"
+  ]
+}
