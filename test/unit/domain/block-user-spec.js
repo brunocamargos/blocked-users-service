@@ -3,15 +3,13 @@ import { blockedUsersRepository } from '../../../src/repository';
 
 describe('Unit: Domain > Block User', () => {
   it('should block a given user', async () => {
-    const insertOneStub = sinon.stub();
-    blockedUsersRepository.insertOne = insertOneStub;
-
     const cpf = '2320982309823';
-    insertOneStub.resolves({ cpf, _id: '5cbb32fe74fd341eeef9d201' });
+    sinon.stub(blockedUsersRepository, 'insertOne')
+      .resolves({ cpf, _id: '5cbb32fe74fd341eeef9d201' });
 
     const result = await blockUser(cpf);
 
-    expect(insertOneStub.calledOnceWith({ cpf })).to.be.equal(true);
+    expect(blockedUsersRepository.insertOne.calledOnceWith({ cpf })).to.be.equal(true);
     expect(result).to.have.property('cpf', cpf);
   });
 
@@ -40,6 +38,7 @@ describe('Unit: Domain > Block User', () => {
   //   await createNotification(reqFake, resStub, nextSpy);
 
   //   expect(nextSpy.calledOnce).to.be.equal(true);
-  //   expect(notFoundSpy.calledOnceWith('Token not found for userId \'not-found\'')).to.be.equal(true);
+  //   expect(notFoundSpy.calledOnceWith('Token not found for userId \'not-found\''))
+  //    .to.be.equal(true);
   // });
 });

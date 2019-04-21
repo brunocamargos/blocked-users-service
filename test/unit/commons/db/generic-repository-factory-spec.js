@@ -13,7 +13,7 @@ describe('Unit: Commons > DB > Generic Repository Factory', () => {
       findOneStub = sinon.stub().resolves({ findOne: 'ok' });
       const dbAdapterStub = dbAdapterStubFactory(insertOneStub, updateOneStub, findOneStub);
       return genericRepositoryFactory(dbAdapterStub);
-    }
+    };
 
     genericRepository = createGenericRepository();
   });

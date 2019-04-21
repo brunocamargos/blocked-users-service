@@ -6,5 +6,3 @@ chai.use(chaiAsPromised);
 
 global.expect = chai.expect;
 global.sinon = sinon;
-
-console.log('*******************');

@@ -11,20 +11,18 @@ describe('Unit: Commons > DB > Mongo DB Adapter', () => {
   };
 
   it('should connect to db', async () => {
-    const connectStub = sinon.stub().resolves(clientFake);
-    MongoClient.connect = connectStub;
+    sinon.stub(MongoClient, 'connect').resolves(clientFake);
 
     const db = await mongoDbAdapter.connect(connectionStringFake, loggerFake);
 
     expect(db).to.deep.equal(dbFake);
-    expect(connectStub.calledOnceWith(connectionStringFake, { useNewUrlParser: true }))
+    expect(MongoClient.connect.calledOnceWith(connectionStringFake, { useNewUrlParser: true }))
       .to.be.equal(true);
   });
 
   it('should throw exception trying to connect to db', async () => {
     const connectionRefusedError = new Error('Connection refused');
-    const connectStub = sinon.stub().rejects(connectionRefusedError);
-    MongoClient.connect = connectStub;
+    sinon.stub(MongoClient, 'connect').rejects(connectionRefusedError);
 
     await expect(mongoDbAdapter.connect(connectionStringFake, loggerFake))
       .to.be.rejectedWith(connectionRefusedError);

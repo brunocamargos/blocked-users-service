@@ -1,7 +1,7 @@
 import express from 'express';
 
 import wrapAsyncError from './commons/async-wrapper-error';
-import validateBody from './commons/middlewares/body-payload-validator';
+// import validateBody from './commons/middlewares/body-payload-validator';
 
 import { addBlockedUser } from './controllers';
 

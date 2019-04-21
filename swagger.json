@@ -64,5 +64,67 @@
         }
       }
     }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "properties": {
+        "status_message": {
+          "type": "string"
+        },
+        "status_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Schedule": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "local": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "hora": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "Exam": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string"
+        },
+        "preparo": {
+          "type": "string"
+        },
+        "dataEntrega": {
+          "type": "string"
+        }
+      }
+    }
   }
 }

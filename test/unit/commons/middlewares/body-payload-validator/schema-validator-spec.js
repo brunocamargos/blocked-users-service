@@ -2,12 +2,12 @@ import validateSchema from '../../../../../src/commons/middlewares/body-payload-
 
 describe('Unit: Commons > Middlewares > Body Payload Validator > Schema Validator', () => {
   const schemaStub = {
-    validate: sinon.stub(),
+    validate() { },
   };
 
   it('should return validation schema error', () => {
     const dataFake = 'error';
-    schemaStub.validate = sinon.stub().returns({
+    sinon.stub(schemaStub, 'validate').returns({
       error: {
         message: 'Error!',
         details: [
@@ -28,7 +28,7 @@ describe('Unit: Commons > Middlewares > Body Payload Validator > Schema Validato
 
   it('should not return error', () => {
     const dataFake = 'success';
-    schemaStub.validate = sinon.stub().returns({ error: null });
+    sinon.stub(schemaStub, 'validate').returns({ error: null });
     const result = validateSchema(schemaStub, dataFake);
 
     expect(result).to.be.equal(undefined);

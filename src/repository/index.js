@@ -6,4 +6,4 @@ const genericRepository = genericRepositoryFactory(dbAdapter);
 
 const blockedUsersRepository = blockedUsersRepositoryFactory(genericRepository);
 
-export { blockedUsersRepository };
+export { blockedUsersRepository, genericRepository };

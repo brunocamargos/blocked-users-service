@@ -19,13 +19,12 @@ describe('Unit: Commons > Middlewares > Body Payload Validator', () => {
       message: 'Error',
       details: [],
     });
-    const badRequestSpy = sinon.spy();
-    Boom.badRequest = badRequestSpy;
+    sinon.spy(Boom, 'badRequest');
 
     validateBody('error', validateSchemaStub)(reqFake, {}, nextSpy);
 
     expect(nextSpy.calledOnce).to.be.equal(true);
     expect(validateSchemaStub.calledOnce).to.be.equal(true);
-    expect(badRequestSpy.calledOnceWith('Error', [])).to.be.equal(true);
+    expect(Boom.badRequest.calledOnceWith('Error', [])).to.be.equal(true);
   });
 });
