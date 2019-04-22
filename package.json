@@ -11,7 +11,7 @@
     "start": "node -r esm -r dotenv/config index.js",
     "dev": "cross-env NODE_ENV=development nodemon -r esm -r dotenv/config index.js | bunyan",
     "lint": "eslint *.js .",
-    "depcheck": "depcheck --ignores husky,dotenv,esm",
+    "checkdep": "depcheck --ignores husky,dotenv,esm && snyk auth 24e5f65a-a5a5-4cc3-b2f0-ea85f87f06ef && snyk test",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "cross-env NODE_ENV=test nyc mocha 'test/unit/**/*.js'",
     "test:integration": "cross-env NODE_ENV=test LOGGER_LEVEL=fatal mocha 'test/integration/**/*-spec.js'"
@@ -46,6 +46,7 @@
     "nodemon": "^1.18.11",
     "nyc": "^14.0.0",
     "sinon": "^7.3.1",
+    "snyk": "^1.151.2",
     "supertest": "^4.0.2"
   }
 }
