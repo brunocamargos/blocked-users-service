@@ -4,12 +4,11 @@ import wrapAsyncError from './commons/async-wrapper-error';
 import validateBody from './commons/body-payload-validator';
 import {
   addBlockedUser,
-  addBlockedUserPayloadSchema,
+  removeBlockedUser,
+  blockedUserPayloadSchema,
   listBlockedUsers,
   healthCheck,
 } from './controllers';
-
-const router = express.Router();
 
 const RESOURCE = '/blockedUsers';
 
@@ -19,10 +18,15 @@ const searchCounterMiddleware = (req, res, next) => {
   next();
 };
 
+const router = express.Router();
+
 router.post(RESOURCE,
-  validateBody(addBlockedUserPayloadSchema), wrapAsyncError(addBlockedUser));
+  validateBody(blockedUserPayloadSchema), wrapAsyncError(addBlockedUser));
 
 router.get(RESOURCE, searchCounterMiddleware, wrapAsyncError(listBlockedUsers));
+
+router.delete(RESOURCE,
+  validateBody(blockedUserPayloadSchema), wrapAsyncError(removeBlockedUser));
 
 router.get('/healthCheck', wrapAsyncError(healthCheck));
 

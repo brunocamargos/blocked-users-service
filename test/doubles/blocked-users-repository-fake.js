@@ -4,6 +4,7 @@ const blockedUsersRepositoryFake = {
   updateOne() { },
   save() { },
   findAll() { },
+  remove() { },
 };
 
 export default blockedUsersRepositoryFake;

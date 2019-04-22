@@ -1,11 +1,17 @@
-import { blockUser } from '../domain';
+import boom from 'boom';
+
+import { unblockUser } from '../domain';
 
 const removeBlockedUser = async (req, res, next) => {
   const { cpf } = req.body;
 
-  await blockUser(cpf);
+  const unblockedUsersCount = await unblockUser(cpf);
 
-  res.status(201).json();
+  if (!unblockedUsersCount) {
+    return next(boom.notFound('BlockedUser not found'));
+  }
+
+  res.status(204).json();
   return next();
 };
 
