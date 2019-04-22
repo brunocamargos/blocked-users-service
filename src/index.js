@@ -31,5 +31,4 @@ app.use(bodyParser.json());
 app.use('/', routes);
 app.use(errorHandlerMiddleware);
 
-
 export default app;

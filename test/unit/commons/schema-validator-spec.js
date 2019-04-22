@@ -1,6 +1,6 @@
-import validateSchema from '../../../../../src/commons/middlewares/body-payload-validator/schema-validator';
+import validateSchema from '../../../src/commons/schema-validator';
 
-describe('Unit: Commons > Middlewares > Body Payload Validator > Schema Validator', () => {
+describe('Unit: Commons > Schema Validator', () => {
   const schemaStub = {
     validate() { },
   };

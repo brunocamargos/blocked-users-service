@@ -13,7 +13,7 @@ describe('Unit: Commons > Logger > Serializers > Response Serializer', () => {
     expect(resSerializer).to.be.a('function');
   });
 
-  it('should return empty object when \'res\' parameter is not informed', () => {
+  it('should return empty object when \'res\' parameter is not passed', () => {
     expect(resSerializer()).to.deep.equal({});
   });
 

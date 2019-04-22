@@ -1,7 +1,7 @@
 import Boom from 'boom';
-import validateBody from '../../../../../src/commons/middlewares/body-payload-validator/body-payload-validator';
+import validateBody from '../../../../src/commons/body-payload-validator/body-payload-validator';
 
-describe('Unit: Commons > Middlewares > Body Payload Validator', () => {
+describe('Unit: Commons > Body Payload Validator', () => {
   it('should not return error', () => {
     const reqFake = { body: null };
     const nextSpy = sinon.spy();

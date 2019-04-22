@@ -4,9 +4,15 @@ import dbClient from '../../src/commons/db';
 import config from '../../src/config';
 import app from '../../src';
 
-before('Before', async () => {
-  await dbClient.connect(`${config.db.url}-test`);
+const createCPFIndex = async (db) => {
+  const COLLECTION_NAME = 'blockedUsers';
+  await db.collection(COLLECTION_NAME).createIndex({ cpf: 1 }, { unique: 1 });
+};
 
+before('Before', async () => {
+  const db = await dbClient.connect(`${config.db.url}-test`);
+
+  await createCPFIndex(db);
   global.config = config;
   global.request = supertest(app);
 });

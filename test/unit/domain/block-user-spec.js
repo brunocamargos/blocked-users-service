@@ -1,44 +1,38 @@
-import { blockUser } from '../../../src/domain/index';
-import { blockedUsersRepository } from '../../../src/repository';
+import blockUser from '../../../src/domain/block-user';
+import blockedUsersRepositoryFake from '../../doubles/blocked-users-repository-fake';
+import loggerFake from '../../doubles/logger-fake';
 
 describe('Unit: Domain > Block User', () => {
+  const cpf = '56235365063';
   it('should block a given user', async () => {
-    const cpf = '2320982309823';
-    sinon.stub(blockedUsersRepository, 'insertOne')
+    sinon.stub(blockedUsersRepositoryFake, 'insertOne')
       .resolves({ cpf, _id: '5cbb32fe74fd341eeef9d201' });
 
-    const result = await blockUser(cpf);
+    const blockedUser = await blockUser(blockedUsersRepositoryFake)(cpf, loggerFake);
 
-    expect(blockedUsersRepository.insertOne.calledOnceWith({ cpf })).to.be.equal(true);
-    expect(result).to.have.property('cpf', cpf);
+    expect(blockedUsersRepositoryFake.insertOne.calledOnceWith({ cpf })).to.be.equal(true);
+    expect(blockedUser).to.have.property('cpf', cpf);
   });
 
-  // it('should return 201 status code and send message without token', async () => {
-  //   const reqFake = {
-  //     body: {
-  //       notification: {},
-  //     },
-  //   };
-  //   await createNotification(reqFake, resStub, nextSpy);
+  it('should throw duplicate key exception when blockedUser already exist', async () => {
+    const mongoDuplicateKeyError = Error('Simulate mongo duplicate key error');
+    mongoDuplicateKeyError.code = 11000;
+    sinon.stub(blockedUsersRepositoryFake, 'insertOne').rejects(mongoDuplicateKeyError);
 
-  //   expect(nextSpy.calledOnce).to.be.equal(true);
-  //   expect(sendMessageSpy.calledOnceWith('logger', { notification: {} })).to.deep.equal(true);
-  //   expect(statusStub.calledWith(201)).to.be.equal(true);
-  //   expect(jsonSpy.calledOnce).to.be.equal(true);
-  // });
+    await expect(blockUser(blockedUsersRepositoryFake)(cpf, loggerFake))
+      .to.be.rejectedWith(Error, 'User already blocked');
+  });
 
-  // it('should return "boom" error when token not found', async () => {
-  //   const reqFake = {
-  //     body: {
-  //       user_id: 'not-found',
-  //       notification: {},
-  //     },
-  //   };
-  //   findOneStub.resolves(null);
-  //   await createNotification(reqFake, resStub, nextSpy);
+  it('should throw exception when insert fails', async () => {
+    const mongoError = Error('Simulate mongo error');
+    sinon.stub(blockedUsersRepositoryFake, 'insertOne').rejects(mongoError);
 
-  //   expect(nextSpy.calledOnce).to.be.equal(true);
-  //   expect(notFoundSpy.calledOnceWith('Token not found for userId \'not-found\''))
-  //    .to.be.equal(true);
-  // });
+    await expect(blockUser(blockedUsersRepositoryFake)(cpf, loggerFake))
+      .to.be.rejectedWith(mongoError);
+  });
+
+  it('should throw invalid cpf exception', async () => {
+    await expect(blockUser(blockedUsersRepositoryFake)('invalid-cpf', loggerFake))
+      .to.be.rejectedWith(Error, 'Invalid CPF');
+  });
 });

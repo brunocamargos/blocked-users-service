@@ -1,8 +1,7 @@
-const fn = () => ({});
 const loggerFake = {
-  info: fn,
-  warn: fn,
-  error: fn,
+  info() { },
+  warn() { },
+  error() { },
 };
 
 export default loggerFake;
