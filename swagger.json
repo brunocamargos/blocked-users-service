@@ -13,7 +13,7 @@
     "/blockedUsers": {
       "post": {
         "summary": "Block user",
-        "description": "Add a give user to a blacklist",
+        "description": "Add a given user to a blacklist",
         "consumes": [
           "application/json"
         ],
@@ -24,7 +24,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Body payload",
+            "description": "User to block",
             "required": true,
             "schema": {
               "type": "object",
@@ -45,12 +45,6 @@
           },
           "400": {
             "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -89,40 +83,6 @@
               }
             }
           }
-        }
-      }
-    },
-    "Schedule": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "local": {
-          "type": "string"
-        },
-        "data": {
-          "type": "string"
-        },
-        "hora": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      }
-    },
-    "Exam": {
-      "type": "object",
-      "properties": {
-        "nome": {
-          "type": "string"
-        },
-        "preparo": {
-          "type": "string"
-        },
-        "dataEntrega": {
-          "type": "string"
         }
       }
     }

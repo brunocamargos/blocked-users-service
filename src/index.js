@@ -1,4 +1,5 @@
 import express from 'express';
+import compression from 'compression';
 import helmet from 'helmet';
 import requestId from 'express-request-id';
 import bodyParser from 'body-parser';
@@ -11,6 +12,7 @@ import errorHandlerMiddleware from './commons/middlewares/express-error-handler'
 import routes from './routes';
 
 const app = express();
+app.use(compression());
 app.locals.logger = logger(config.logger);
 app.locals.config = config;
 
