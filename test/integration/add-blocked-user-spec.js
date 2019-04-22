@@ -6,8 +6,7 @@ const assertBadRequest = (response, message) => {
   expect(response.body).to.have.property('status_message', 'Bad Request');
   expect(response.body).to.have.property('status_code', 400);
   expect(response.status).to.equal(400);
-  expect(response.body).to.have
-    .property('message', message);
+  expect(response.body).to.have.property('message', message);
 };
 
 describe('Integration: Add Blocked User', () => {

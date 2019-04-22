@@ -1,14 +1,10 @@
-import { validate as isValidCPF } from 'gerador-validador-cpf';
+import validateCPF from './validate-cpf';
 
 const blockUser = repository => async (cpf, logger = console) => {
   const DB_DUPLICATE_KEY_ERROR_CODE = 11000;
   let blockedUser;
 
-  if (!isValidCPF(cpf)) {
-    const invalidCPFError = new Error('Invalid CPF');
-    invalidCPFError.code = 'invalid-cpf';
-    throw invalidCPFError;
-  }
+  validateCPF(cpf);
 
   try {
     blockedUser = await repository.insertOne({ cpf });

@@ -30,9 +30,4 @@ describe('Unit: Domain > Block User', () => {
     await expect(blockUser(blockedUsersRepositoryFake)(cpf, loggerFake))
       .to.be.rejectedWith(mongoError);
   });
-
-  it('should throw invalid cpf exception', async () => {
-    await expect(blockUser(blockedUsersRepositoryFake)('invalid-cpf', loggerFake))
-      .to.be.rejectedWith(Error, 'Invalid CPF');
-  });
 });

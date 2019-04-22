@@ -4,12 +4,12 @@ import dbClient from '../../src/commons/db';
 import config from '../../src/config';
 import app from '../../src';
 
-const createCPFIndex = async (db) => {
-  const COLLECTION_NAME = 'blockedUsers';
-  await db.collection(COLLECTION_NAME).createIndex({ cpf: 1 }, { unique: 1 });
-};
+const COLLECTION_NAME = 'blockedUsers';
 
-before('Before', async () => {
+const createCPFIndex = async db => db.collection(COLLECTION_NAME)
+  .createIndex({ cpf: 1 }, { unique: 1 });
+
+before(async () => {
   const db = await dbClient.connect(`${config.db.url}-test`);
 
   await createCPFIndex(db);
@@ -17,7 +17,9 @@ before('Before', async () => {
   global.request = supertest(app);
 });
 
-after('After', async () => {
+afterEach(async () => dbClient.db.collection(COLLECTION_NAME).deleteMany({}));
+
+after(async () => {
   await dbClient.db.dropDatabase();
   await dbClient.disconnect();
 });
