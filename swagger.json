@@ -56,6 +56,108 @@
             }
           }
         }
+      },
+      "get": {
+        "summary": "List blocked users",
+        "description": "List all blocked users or for a given CPF",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cpf",
+            "description": "CPF to search for",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BlockedUser"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/healthCheck": {
+      "get": {
+        "summary": "Status from server",
+        "description": "List infos about the server running",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "number"
+                },
+                "uptime": {
+                  "type": "number"
+                },
+                "memory": {
+                  "type": "object",
+                  "properties": {
+                    "rss": {
+                      "type": "number"
+                    },
+                    "heapTotal": {
+                      "type": "number"
+                    },
+                    "heapUsed": {
+                      "type": "number"
+                    },
+                    "external": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "search_count": {
+                  "type": "number"
+                },
+                "blocked_users_count": {
+                  "type": "number"
+                },
+                "db_status": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
       }
     }
   },
@@ -83,6 +185,17 @@
               }
             }
           }
+        }
+      }
+    },
+    "BlockedUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "cpf": {
+          "type": "string"
         }
       }
     }

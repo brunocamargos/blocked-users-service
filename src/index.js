@@ -15,6 +15,7 @@ const app = express();
 app.use(compression());
 app.locals.logger = logger(config.logger);
 app.locals.config = config;
+app.locals.searchCount = 0;
 
 app.use(helmet());
 app.use(cors());

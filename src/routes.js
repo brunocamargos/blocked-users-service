@@ -6,17 +6,24 @@ import {
   addBlockedUser,
   addBlockedUserPayloadSchema,
   listBlockedUsers,
+  healthCheck,
 } from './controllers';
 
 const router = express.Router();
 
 const RESOURCE = '/blockedUsers';
 
-router.post(RESOURCE,
-  validateBody(addBlockedUserPayloadSchema),
-  wrapAsyncError(addBlockedUser));
+const searchCounterMiddleware = (req, res, next) => {
+  const COUNT_INCREMENT = 1;
+  req.app.locals.searchCount += COUNT_INCREMENT;
+  next();
+};
 
-router.get(RESOURCE,
-  wrapAsyncError(listBlockedUsers));
+router.post(RESOURCE,
+  validateBody(addBlockedUserPayloadSchema), wrapAsyncError(addBlockedUser));
+
+router.get(RESOURCE, searchCounterMiddleware, wrapAsyncError(listBlockedUsers));
+
+router.get('/healthCheck', wrapAsyncError(healthCheck));
 
 export default router;
