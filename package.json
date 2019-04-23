@@ -7,7 +7,6 @@
   "author": "Bruno Camargos <bruno.camargos@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prestart": "cross-env DB_URL=mongodb://localhost:27017/blockedUsersDB node -r esm .bin/add-index-db.js",
     "start": "node -r esm -r dotenv/config index.js",
     "dev": "cross-env NODE_ENV=development nodemon -r esm -r dotenv/config index.js | bunyan",
     "lint": "eslint *.js .",

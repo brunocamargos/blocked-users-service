@@ -34,8 +34,8 @@ router.get(`${BLOCKED_USERS_RESOURCE}/:id`,
   validatePayload(mongoIdSchema, sourceOptions.PARAMS),
   wrapAsyncError(getBlockedUser));
 
-router.delete(BLOCKED_USERS_RESOURCE,
-  validatePayload(blockedUserPayloadSchema),
+router.delete(`${BLOCKED_USERS_RESOURCE}/:id`,
+  validatePayload(mongoIdSchema, sourceOptions.PARAMS),
   wrapAsyncError(removeBlockedUser));
 
 router.get('/healthCheck', wrapAsyncError(healthCheck));

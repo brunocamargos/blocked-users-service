@@ -3,15 +3,28 @@
   "info": {
     "description": "A simple API to manage blocked users",
     "version": "1.0.0",
-    "title": "BlockedUsersService",
+    "title": "Swagger BlockedUsersService",
     "contact": {
       "email": "bruno.camargos@gmail.com"
     }
   },
   "host": "localhost:3051",
+  "tags": [
+    {
+      "name": "blockedUsers",
+      "description": "Put/remove users to/from a black list"
+    },
+    {
+      "name": "healthCheck",
+      "description": "Monitor de health of the service"
+    }
+  ],
   "paths": {
     "/blockedUsers": {
       "post": {
+        "tags": [
+          "blockedUsers"
+        ],
         "summary": "Block user",
         "description": "Add a given user to a blacklist",
         "consumes": [
@@ -58,6 +71,9 @@
         }
       },
       "get": {
+        "tags": [
+          "blockedUsers"
+        ],
         "summary": "List blocked users",
         "description": "List all blocked users or for a given CPF",
         "produces": [
@@ -103,8 +119,100 @@
         }
       }
     },
+    "/blockedUsers/{id}": {
+      "get": {
+        "tags": [
+          "blockedUsers"
+        ],
+        "summary": "Return a Blocked User",
+        "description": "Get a Blocked User by Id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "BlockedUserId to search for",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/BlockedUser"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "blockedUsers"
+        ],
+        "summary": "Remove a Blocked User",
+        "description": "Remove a Blocked User by Id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "BlockedUserId to remove",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/healthCheck": {
       "get": {
+        "tags": [
+          "healthCheck"
+        ],
         "summary": "Status from server",
         "description": "List infos about the server running",
         "produces": [
@@ -162,6 +270,21 @@
     }
   },
   "definitions": {
+    "BlockedUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "byte"
+        },
+        "cpf": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "BlockedUser"
+      }
+    },
     "Error": {
       "type": "object",
       "properties": {
@@ -186,17 +309,9 @@
             }
           }
         }
-      }
-    },
-    "BlockedUser": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "cpf": {
-          "type": "string"
-        }
+      },
+      "xml": {
+        "name": "Error"
       }
     }
   }

@@ -3,9 +3,9 @@ import boom from 'boom';
 import { unblockUser } from '../domain';
 
 const removeBlockedUser = async (req, res, next) => {
-  const { cpf } = req.body;
+  const { id } = req.params;
 
-  const unblockedUsersCount = await unblockUser(cpf);
+  const unblockedUsersCount = await unblockUser(id);
 
   if (!unblockedUsersCount) {
     return next(boom.notFound('BlockedUser not found'));

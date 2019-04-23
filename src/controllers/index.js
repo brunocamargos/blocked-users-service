@@ -1,10 +1,10 @@
 import addBlockedUser from './add-blocked-user';
-import blockedUserPayloadSchema from './blocked-user-payload-schema';
 import removeBlockedUser from './remove-blocked-user';
 import listBlockedUsers from './list-blocked-users';
 import healthCheck from './health-check';
 import getBlockedUser from './get-blocked-user';
-import mongoIdSchema from './mongo-id-schema';
+import blockedUserPayloadSchema from './schemas/blocked-user-payload-schema';
+import mongoIdSchema from './schemas/mongo-id-schema';
 
 export {
   addBlockedUser,
