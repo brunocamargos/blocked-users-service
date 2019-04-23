@@ -9,7 +9,7 @@ export default joi.object({
   DB_URL: joi.string()
     .required(),
   PORT: joi.string()
-    .required(),
+    .default(8080),
   NAME: joi.string()
     .default(name),
   LOGGER_LEVEL: joi.string()

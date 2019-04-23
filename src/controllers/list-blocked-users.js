@@ -17,10 +17,6 @@ const listBlockedUsers = async (req, res, next) => {
     return next(err);
   }
 
-  if (!blockedUsers.length) {
-    return next(boom.notFound('BlockedUser not found'));
-  }
-
   res.status(200).json(blockedUsers);
   return next();
 };

@@ -46,15 +46,13 @@ describe('Integration: List Blocked Users', () => {
     expect(response.body).to.have.property('message', 'Invalid CPF');
   });
 
-  it('should return not found (404)', async () => {
+  it('should return empty when there\' no blocked user', async () => {
     const cpf = '66626232029';
     const response = await request
       .get(`${RESOURCE}/?cpf=${cpf}`)
       .send();
 
-    expect(response.body).to.have.property('status_message', 'Not Found');
-    expect(response.body).to.have.property('status_code', 404);
-    expect(response.status).to.equal(404);
-    expect(response.body).to.have.property('message', 'BlockedUser not found');
+    expect(response.status).to.equal(200);
+    expect(response.body).to.deep.equal([]);
   });
 });

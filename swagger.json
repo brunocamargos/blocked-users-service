@@ -8,7 +8,7 @@
       "email": "bruno.camargos@gmail.com"
     }
   },
-  "host": "localhost:3051",
+  "host": "localhost:8080",
   "tags": [
     {
       "name": "blockedUsers",

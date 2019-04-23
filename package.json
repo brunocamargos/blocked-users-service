@@ -9,9 +9,10 @@
   "scripts": {
     "start": "node -r esm -r dotenv/config index.js",
     "dev": "cross-env NODE_ENV=development nodemon -r esm -r dotenv/config index.js | bunyan",
+    "docker": "docker-compose up -d --build",
     "lint": "eslint *.js .",
     "checkdep": "depcheck --ignores husky,dotenv,esm && snyk auth 24e5f65a-a5a5-4cc3-b2f0-ea85f87f06ef && snyk test",
-    "test": "yarn test:unit && yarn test:integration",
+    "test": "cross-env NODE_ENV=test nyc mocha 'test/unit/**/*.js' && cross-env NODE_ENV=test LOGGER_LEVEL=fatal mocha 'test/integration/**/*-spec.js'",
     "test:unit": "cross-env NODE_ENV=test nyc mocha 'test/unit/**/*.js'",
     "test:integration": "cross-env NODE_ENV=test LOGGER_LEVEL=fatal mocha 'test/integration/**/*-spec.js'"
   },

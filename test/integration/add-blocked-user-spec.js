@@ -15,7 +15,8 @@ describe('Integration: Add Blocked User', () => {
       .post(RESOURCE)
       .send({ cpf: '966' });
 
-    const expectedMessage = 'child "cpf" fails because ["cpf" length must be 11 characters long]';
+    const expectedMessage = 'child "cpf" fails because ["cpf" must be 11 characters long and contain only numbers]';
+
     assertBadRequest(response, expectedMessage);
   });
 

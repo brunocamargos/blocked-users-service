@@ -1,0 +1,41 @@
+version: '3.5'
+networks:
+  dockernet:
+    name: dockernet
+    external: false
+volumes: #
+  mongodb:
+  mongo_data:
+    driver: local
+  data_containers:
+    driver: local
+
+services:
+  mongodb:
+    image: mvertes/alpine-mongo
+    container_name: mongodb
+    hostname: mongodb
+    restart: always
+    networks:
+      - dockernet
+    cap_add: #
+      - ALL
+    ports:
+      - "27117:27017"
+    volumes:
+      - "mongodb:/data/db"
+
+  blockedusersservice:
+    environment:
+      - NODE_ENV=development
+      - DB_URL=mongodb://mongodb/blockedUsersDB
+      - LOGGER_LEVEL=info
+    image: blockedusersservice
+    container_name: blockedusersservice
+    build:
+      context: ./
+    ports:
+      - "8080:8080" #host:container
+    networks:
+      - dockernet
+    restart: always
