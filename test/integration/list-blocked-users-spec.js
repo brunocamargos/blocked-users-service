@@ -1,22 +1,12 @@
-import { format as formatCPF } from 'gerador-validador-cpf';
-
-import { blockedUsersRepository } from '../../src/repository';
+import createBlockedUser from './create-blocked-user-helper';
 
 const RESOURCE = '/blockedUsers';
-
-const insertBlockedUsers = async (cpf) => {
-  const blockedUser = await blockedUsersRepository.insertOne({ cpf });
-  return {
-    id: blockedUser._id.toString(),
-    cpf: formatCPF(blockedUser.cpf),
-  };
-};
 
 describe('Integration: List Blocked Users', () => {
   it('should return all blocked users', async () => {
     const expected = [
-      await insertBlockedUsers('66626232028'),
-      await insertBlockedUsers('66626232029'),
+      await createBlockedUser('66626232028'),
+      await createBlockedUser('66626232029'),
     ];
 
     const response = await request
@@ -27,12 +17,12 @@ describe('Integration: List Blocked Users', () => {
     expect(response.body).to.deep.equal(expected);
   });
 
-  it('should return all blocked users for a given cpf', async () => {
-    await insertBlockedUsers('66626232028');
+  it('should return all blocked users filtered by cpf', async () => {
+    await createBlockedUser('66626232028');
 
     const cpf = '66626232029';
     const expected = [
-      await insertBlockedUsers(cpf),
+      await createBlockedUser(cpf),
     ];
 
     const response = await request

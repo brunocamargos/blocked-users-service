@@ -6,9 +6,11 @@ const genericRepositoryFactory = dbAdapter => (collectionName) => {
     .then(result => result.ops[0]);
 
   const findOne = async (query, opts = {}) => {
-    const { ...localQuery } = query;
-    if (localQuery._id) {
-      localQuery._id = new ObjectID(localQuery._id);
+    const { id, _id, ...localQuery } = query;
+
+    const idToParse = id || _id;
+    if (idToParse) {
+      localQuery._id = new ObjectID(idToParse);
     }
 
     return dbAdapter.db.collection(collectionName)

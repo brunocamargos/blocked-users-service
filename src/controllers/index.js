@@ -3,6 +3,8 @@ import blockedUserPayloadSchema from './blocked-user-payload-schema';
 import removeBlockedUser from './remove-blocked-user';
 import listBlockedUsers from './list-blocked-users';
 import healthCheck from './health-check';
+import getBlockedUser from './get-blocked-user';
+import mongoIdSchema from './mongo-id-schema';
 
 export {
   addBlockedUser,
@@ -10,4 +12,6 @@ export {
   removeBlockedUser,
   listBlockedUsers,
   healthCheck,
+  getBlockedUser,
+  mongoIdSchema,
 };

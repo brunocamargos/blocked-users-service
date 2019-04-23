@@ -1,12 +1,12 @@
-import Boom from 'boom';
-import validateBody from '../../../../src/commons/body-payload-validator/body-payload-validator';
+import boom from 'boom';
+import validatePayload from '../../../../src/commons/middlewares/payload-validator/validate-payload';
 
-describe('Unit: Commons > Body Payload Validator', () => {
+describe('Unit: Commons > Middlewares > Payload Validator', () => {
   it('should not return error', () => {
     const reqFake = { body: null };
     const nextSpy = sinon.spy();
     const validateSchemaStub = sinon.stub().returns();
-    validateBody({}, validateSchemaStub)(reqFake, {}, nextSpy);
+    validatePayload({}, validateSchemaStub)(reqFake, {}, nextSpy);
 
     expect(nextSpy.calledOnceWith()).to.be.equal(true);
     expect(validateSchemaStub.calledOnce).to.be.equal(true);
@@ -19,12 +19,12 @@ describe('Unit: Commons > Body Payload Validator', () => {
       message: 'Error',
       details: [],
     });
-    sinon.spy(Boom, 'badRequest');
+    sinon.spy(boom, 'badRequest');
 
-    validateBody('error', validateSchemaStub)(reqFake, {}, nextSpy);
+    validatePayload('error', validateSchemaStub)(reqFake, {}, nextSpy);
 
     expect(nextSpy.calledOnce).to.be.equal(true);
     expect(validateSchemaStub.calledOnce).to.be.equal(true);
-    expect(Boom.badRequest.calledOnceWith('Error', [])).to.be.equal(true);
+    expect(boom.badRequest.calledOnceWith('Error', [])).to.be.equal(true);
   });
 });

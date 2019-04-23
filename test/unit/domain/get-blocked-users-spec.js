@@ -26,7 +26,7 @@ describe('Unit: Domain > Get Blocked Users', () => {
     expect(blockedUsers).to.deep.equal(expected);
   });
 
-  it('should return all blocked users for a given CPF', async () => {
+  it('should return all blocked users filtered by CPF', async () => {
     const cpf = '56235365063';
     sinon.stub(blockedUsersRepositoryFake, 'findAll')
       .resolves([{ cpf, _id: '5cbb32fe74fd341eeef9d201' }]);
