@@ -12,6 +12,10 @@ import errorHandlerMiddleware from './commons/middlewares/express-error-handler'
 import routes from './routes';
 
 const app = express();
+
+// Indent prettified JSON
+app.set('json spaces', 2);
+
 app.use(compression());
 app.locals.logger = logger(config.logger);
 app.locals.config = config;
