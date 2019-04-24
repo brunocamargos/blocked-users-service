@@ -27,7 +27,7 @@ services:
 
   blockedusersservice:
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - DB_URL=mongodb://mongodb/blockedUsersDB
       - LOGGER_LEVEL=info
     image: blockedusersservice
