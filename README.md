@@ -41,7 +41,7 @@ echo "NODE_ENV=development /
 DB_URL=mongodb://localhost:27017/blockedUsersDB /
 LOGGER_LEVEL=info" > .env
 ```
-lembrando que a porta do mongo pode necessitar alteração.
+Lembrando que a porta do mongo pode necessitar alteração.
 
 Caso tenha optado pelo mongo servido pelo docker-compose desse projeto, utilize a porta `27117`;
 
@@ -55,7 +55,10 @@ NAME=blocked-users-service
 LOGGER_LEVEL=(fatal, error, warn, info, debug, trace)
 ```
 
-### Disponibiliza a API
+Está pronto para rodar! 
+Vamos em frente.
+
+## Disponibilizando a API
 
 Via docker
 ```bash
