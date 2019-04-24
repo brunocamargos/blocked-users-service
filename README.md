@@ -105,7 +105,7 @@ Há também alguns outros scripts para análise de código, dependências e vuln
 npm run lint
 ```
 
-### Varre por dependências não utilizadas e vulnerabilidades
+### Varrendo por dependências não utilizadas e vulnerabilidades
 
 ```bash
 npm run checkdep
@@ -113,7 +113,7 @@ npm run checkdep
 
 O *precommit* é feito através do *git hooks* pelo pacote [husky](https://github.com/typicode/husky).
 
-Assim sendo, sempre que for feito um *commit*, será executado os seguintes scripts:
+Assim sendo, sempre que for feito um *commit* será executado os seguintes scripts:
 ```bash
 npm lint && npm checkdep && npm test
 ```
