@@ -17,4 +17,6 @@ WORKDIR /app
 COPY --from=dependencies /app ./
 COPY index.js swagger.json ./
 COPY src ./src/
+RUN chown node:node -R /app
+USER node
 CMD ["node", "-r", "esm", "-r", "dotenv/config", "index.js"]

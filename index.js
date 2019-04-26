@@ -7,7 +7,7 @@ import swaggerDoc from './swagger.json';
 const { logger, config } = app.locals;
 
 process
-  .on('uncaughtException', (err) => {
+  .once('uncaughtException', (err) => {
     logger.fatal({ err }, 'Uncaught Exception');
     process.exit(1);
   })

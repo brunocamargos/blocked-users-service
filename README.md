@@ -17,30 +17,30 @@ Este projeto usa [node](https://nodejs.org/en/download/) na versão 8.16.0 ou ma
 - [Docker](https://docs.docker.com/install/) e [Docker Compose](https://docs.docker.com/compose/install/)
 - [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
 
-
 ## Instalação e execução
 
 Segue um passo a passo mostrando como colocar o ambiente de desenvolvimento rodando.
 
-### Copia o repositório.
+### Copia o repositório
 
 ```bash
 git clone git@github.com:brunocamargos/blocked-users-service.git
 ```
 
-### Instala as depêndencias.
+### Instala as depêndencias
 
 ```bash
 npm i
 ```
 
-### Cria um arquivo `.env` contendo as variáveis de ambiente.
+### Cria um arquivo `.env` contendo as variáveis de ambiente
 
 ```bash
 echo "NODE_ENV=development /
 DB_URL=mongodb://localhost:27017/blockedUsersDB /
 LOGGER_LEVEL=info" > .env
 ```
+
 Lembrando que a porta do mongo pode necessitar alteração.
 
 Caso tenha optado pelo mongo servido pelo docker-compose desse projeto, utilize a porta `27117`;
@@ -55,24 +55,27 @@ NAME=blocked-users-service
 LOGGER_LEVEL=(fatal, error, warn, info, debug, trace)
 ```
 
-Está pronto para rodar! 
+Está pronto para rodar!
 Vamos em frente.
 
 ## Disponibilizando a API
 
 Via docker
+
 ```bash
 npm run docker
 ```
 
 **Se não possui o banco instalado na máquina local, lembre de subi-lo via comando acima antes de rodar os scripts daqui em diante.**
 
-Local sem container. 
+Local sem container.
+
 ```bash
 npm start
 ```
 
 Ou em ambiente de desenvolvimento
+
 ```bash
 npm run dev
 ```
@@ -86,11 +89,13 @@ npm test
 ```
 
 Somente os testes de unidade
+
 ```bash
 npm run test:unit
 ```
 
 Somente os testes de integração
+
 ```bash
 npm run test:integration
 ```
@@ -114,13 +119,14 @@ npm run checkdep
 O *precommit* é feito através do *git hooks* pelo pacote [husky](https://github.com/typicode/husky).
 
 Assim sendo, sempre que for feito um *commit* será executado os seguintes scripts:
+
 ```bash
 npm lint && npm checkdep && npm test
 ```
 
 Uma forma de manter a base de código limpa e consistente.
 
-## Estrutura de pastas 
+## Estrutura de pastas
 
 ```bash
 ├── src (Código fonte de fato)
@@ -132,7 +138,7 @@ Uma forma de manter a base de código limpa e consistente.
 │   ├── controllers (Responsável por tratar as requisições e chamar os objetos de domínio)
 │   ├── domain (Core da aplicação)
 │   ├── repository (Responsável por lidar com chamadas ao banco)
-└── test 
+└── test
     ├── doubles (Fakes, spys, stubs e mocks)
     ├── integration (Testes de integração)
     └── unit (Testes de unidade)
